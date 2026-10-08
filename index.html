@@ -14,12 +14,926 @@
     }
 
     body {
-      background: #0b0b10;
+      background:
+        radial-gradient(circle at 50% 20%, #20202c 0%, #09090d 45%, #050507 100%);
       color: white;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow-x: hidden;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 1000px;
+      min-height: 650px;
+      padding: 35px;
+      background: rgba(14, 14, 20, 0.96);
+      border: 1px solid #292936;
+      border-radius: 22px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.65);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ---------------- TITLE ---------------- */
+
+    .logo {
+      text-align: center;
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      margin-bottom: 8px;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(
+        90deg,
+        #777,
+        #fff,
+        #777,
+        #fff,
+        #777
+      );
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: lightSweep 4s linear infinite;
+    }
+
+    @keyframes lightSweep {
+      0% {
+        background-position: 250% center;
+      }
+
+      100% {
+        background-position: -250% center;
+      }
+    }
+
+    .logo::after {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 20%;
+      height: 160%;
+      background: rgba(255, 255, 255, 0.25);
+      transform: skewX(-25deg);
+      filter: blur(18px);
+      animation: rayMove 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rayMove {
+      0% {
+        left: -30%;
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      85% {
+        opacity: 0;
+      }
+
+      100% {
+        left: 120%;
+        opacity: 0;
+      }
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #888895;
+      margin-bottom: 35px;
+      letter-spacing: 1px;
+    }
+
+    /* ---------------- SCREENS ---------------- */
+
+    .hidden {
+      display: none;
+    }
+
+    .panel {
+      max-width: 500px;
+      margin: auto;
+      background: linear-gradient(145deg, #1b1b25, #12121a);
+      padding: 28px;
+      border-radius: 18px;
+      border: 1px solid #2d2d39;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .panel h2 {
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .panel-description {
+      text-align: center;
+      color: #8f8f9c;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #bdbdc8;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #353542;
+      background: #0c0c12;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #777784;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.05);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+      color: #111;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #dddddd;
+    }
+
+    .secondary-button {
+      margin-top: 10px;
+      background: #252530;
+      color: white;
+      border: 1px solid #353542;
+    }
+
+    .secondary-button:hover {
+      background: #30303c;
+    }
+
+    /* ---------------- LOADING ---------------- */
+
+    .loading {
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #292936;
+      border-top: 4px solid white;
+      border-radius: 50%;
+      margin: 25px auto;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .life-text {
+      color: #888895;
+      margin-top: 10px;
+    }
+
+    /* ---------------- DASHBOARD ---------------- */
+
+    .welcome {
+      margin-top: 25px;
+      padding: 22px;
+      background: linear-gradient(145deg, #1c1c27, #14141d);
+      border-radius: 15px;
+      border: 1px solid #292936;
+    }
+
+    .welcome h2 {
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: #9999aa;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: #191922;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #292936;
+    }
+
+    .card h3 {
+      color: #8f8f9c;
+      font-size: 13px;
+      margin-bottom: 9px;
+    }
+
+    .card p {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .actions {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .actions button {
+      background: #20202b;
+      color: white;
+      border: 1px solid #343440;
+    }
+
+    .actions button:hover {
+      background: #2a2a37;
+    }
+
+    .news {
+      margin-top: 18px;
+      padding: 20px;
+      background: #191922;
+      border: 1px solid #292936;
+      border-radius: 14px;
+    }
+
+    .news h3 {
+      margin-bottom: 8px;
+    }
+
+    .news p {
+      color: #9999aa;
+      line-height: 1.5;
+    }
+
+    .life-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 7px 12px;
+      background: #272733;
+      border-radius: 20px;
+      color: #bbb;
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+
+      .game {
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 22px;
+      }
+
+      .logo {
+        font-size: 36px;
+        letter-spacing: 5px;
+      }
+
+      .dashboard,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="game">
+
+    <!-- ================= ACCOUNT SCREEN ================= -->
+
+    <section id="accountScreen">
+
+      <div class="logo">AFTERDARK</div>
+
+      <p class="subtitle">
+        Build your life. Build your status.
+      </p>
+
+      <div class="panel">
+
+        <h2>Create Your Account</h2>
+
+        <p class="panel-description">
+          Your life is about to be decided.
+        </p>
+
+        <label for="username">Username</label>
+
+        <input
+          id="username"
+          type="text"
+          maxlength="20"
+          placeholder="Choose a username"
+        >
+
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Enter your email"
+        >
+
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Create a password"
+        >
+
+        <label for="confirmPassword">Confirm password</label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm your password"
+        >
+
+        <button id="createAccountButton">
+          CREATE ACCOUNT
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= LIFE ASSIGNMENT ================= -->
+
+    <section id="lifeScreen" class="hidden">
+
+      <div class="logo">AFTERDARK</div>
+
+      <div class="loading">
+
+        <h2>YOUR LIFE IS BEING DECIDED...</h2>
+
+        <div class="spinner"></div>
+
+        <p class="life-text">
+          You don't choose your life.
+          Your life chooses you.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboardScreen" class="hidden">
+
+      <div class="logo">AFTERDARK</div>
+
+      <div class="welcome">
+
+        <h2 id="welcomeText">
+          Welcome!
+        </h2>
+
+        <p id="lifeDescription">
+          Your journey begins now.
+        </p>
+
+        <span class="life-badge" id="status">
+          Unknown
+        </span>
+
+      </div>
+
+
+      <div class="dashboard">
+
+        <div class="card">
+
+          <h3>💰 CASH</h3>
+
+          <p id="money">
+            ₦500,000
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>⭐ REPUTATION</h3>
+
+          <p id="reputation">
+            0
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>💼 CAREER</h3>
+
+          <p id="careerDisplay">
+            Unknown
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>🏠 HOME</h3>
+
+          <p id="home">
+            Unknown
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>📈 LEVEL</h3>
+
+          <p id="level">
+            1
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>🔥 STATUS</h3>
+
+          <p id="statusDisplay">
+            Unknown
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button id="workButton">
+          💼 Work
+        </button>
+
+        <button id="profileButton">
+          👤 Profile
+        </button>
+
+        <button id="resetButton">
+          🔄 Restart
+        </button>
+
+      </div>
+
+
+      <div class="news">
+
+        <h3>📢 CITY NEWS</h3>
+
+        <p id="news">
+          Welcome to AFTERDARK. Your story begins now.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* ================= PLAYER DATA ================= */
+
+    let player = {
+      username: "",
+      email: "",
+      money: 500000,
+      reputation: 0,
+      level: 1,
+      career: "",
+      home: "",
+      status: ""
+    };
+
+
+    /* ================= LIFE OPTIONS ================= */
+
+    const careers = [
+
+      {
+        name: "Billionaire Business Owner",
+        money: 85000000,
+        home: "Luxury Mansion",
+        status: "Elite"
+      },
+
+      {
+        name: "Tech Founder",
+        money: 15000000,
+        home: "Modern Apartment",
+        status: "Influential"
+      },
+
+      {
+        name: "Content Creator",
+        money: 2500000,
+        home: "Luxury Apartment",
+        status: "Popular"
+      },
+
+      {
+        name: "Restaurant Owner",
+        money: 1200000,
+        home: "Large Apartment",
+        status: "Known"
+      },
+
+      {
+        name: "Mechanic",
+        money: 650000,
+        home: "Small Apartment",
+        status: "Unknown"
+      },
+
+      {
+        name: "Plumber",
+        money: 500000,
+        home: "Small Apartment",
+        status: "Unknown"
+      },
+
+      {
+        name: "Delivery Worker",
+        money: 500000,
+        home: "Shared Apartment",
+        status: "Unknown"
+      },
+
+      {
+        name: "Street Vendor",
+        money: 500000,
+        home: "Small Room",
+        status: "Unknown"
+      }
+
+    ];
+
+
+    /* ================= ELEMENTS ================= */
+
+    const accountScreen =
+      document.getElementById("accountScreen");
+
+    const lifeScreen =
+      document.getElementById("lifeScreen");
+
+    const dashboardScreen =
+      document.getElementById("dashboardScreen");
+
+    const createAccountButton =
+      document.getElementById("createAccountButton");
+
+    const workButton =
+      document.getElementById("workButton");
+
+    const profileButton =
+      document.getElementById("profileButton");
+
+    const resetButton =
+      document.getElementById("resetButton");
+
+
+    /* ================= ACCOUNT CREATION ================= */
+
+    createAccountButton.addEventListener("click", function () {
+
+      const username =
+        document.getElementById("username").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+      if (!username || !email || !password || !confirmPassword) {
+
+        alert("Please complete every field.");
+
+        return;
+
+      }
+
+
+      if (password !== confirmPassword) {
+
+        alert("Your passwords do not match.");
+
+        return;
+
+      }
+
+
+      player.username = username;
+
+      player.email = email;
+
+
+      accountScreen.classList.add("hidden");
+
+      lifeScreen.classList.remove("hidden");
+
+
+      /*
+        Give the game a short dramatic delay
+        before revealing the player's life.
+      */
+
+      setTimeout(assignLife, 2500);
+
+    });
+
+
+    /* ================= RANDOM LIFE ================= */
+
+    function assignLife() {
+
+      const randomIndex =
+        Math.floor(Math.random() * careers.length);
+
+      const life =
+        careers[randomIndex];
+
+
+      player.money = life.money;
+
+      player.career = life.name;
+
+      player.home = life.home;
+
+      player.status = life.status;
+
+
+      lifeScreen.classList.add("hidden");
+
+      dashboardScreen.classList.remove("hidden");
+
+
+      updateDashboard();
+
+
+      document.getElementById("news").textContent =
+        "The city has assigned you a new life. " +
+        "Your journey starts now.";
+
+    }
+
+
+    /* ================= DASHBOARD ================= */
+
+    function updateDashboard() {
+
+      document.getElementById("welcomeText").textContent =
+        "Welcome, " + player.username + "!";
+
+
+      document.getElementById("lifeDescription").textContent =
+        "You were born into the life of a " +
+        player.career + ".";
+
+
+      document.getElementById("money").textContent =
+        "₦" + player.money.toLocaleString();
+
+
+      document.getElementById("reputation").textContent =
+        player.reputation;
+
+
+      document.getElementById("careerDisplay").textContent =
+        player.career;
+
+
+      document.getElementById("home").textContent =
+        player.home;
+
+
+      document.getElementById("level").textContent =
+        player.level;
+
+
+      document.getElementById("status").textContent =
+        player.status;
+
+
+      document.getElementById("statusDisplay").textContent =
+        player.status;
+
+    }
+
+
+    /* ================= WORK ================= */
+
+    workButton.addEventListener("click", function () {
+
+      let earnings = 0;
+
+
+      if (player.career === "Billionaire Business Owner") {
+
+        earnings = 1500000;
+
+      }
+
+      else if (player.career === "Tech Founder") {
+
+        earnings = 500000;
+
+      }
+
+      else if (player.career === "Content Creator") {
+
+        earnings = 120000;
+
+      }
+
+      else if (player.career === "Restaurant Owner") {
+
+        earnings = 80000;
+
+      }
+
+      else if (player.career === "Mechanic") {
+
+        earnings = 40000;
+
+      }
+
+      else if (player.career === "Plumber") {
+
+        earnings = 35000;
+
+      }
+
+      else if (player.career === "Delivery Worker") {
+
+        earnings = 25000;
+
+      }
+
+      else {
+
+        earnings = 20000;
+
+      }
+
+
+      player.money += earnings;
+
+      player.reputation += 1;
+
+
+      if (player.reputation % 10 === 0) {
+
+        player.level += 1;
+
+      }
+
+
+      document.getElementById("news").textContent =
+        "You worked today and earned ₦" +
+        earnings.toLocaleString() +
+        ".";
+
+
+      updateDashboard();
+
+    });
+
+
+    /* ================= PROFILE ================= */
+
+    profileButton.addEventListener("click", function () {
+
+      alert(
+
+        "PLAYER PROFILE\n\n" +
+
+        "Username: " + player.username + "\n" +
+
+        "Career: " + player.career + "\n" +
+
+        "Cash: ₦" +
+        player.money.toLocaleString() + "\n" +
+
+        "Home: " + player.home + "\n" +
+
+        "Reputation: " + player.reputation + "\n" +
+
+        "Level: " + player.level + "\n" +
+
+        "Status: " + player.status
+
+      );
+
+    });
+
+
+    /* ================= RESTART ================= */
+
+    resetButton.addEventListener("click", function () {
+
+      if (!confirm("Restart your life?")) {
+
+        return;
+
+      }
+
+
+      player = {
+
+        username: "",
+        email: "",
+        money: 500000,
+        reputation: 0,
+        level: 1,
+        career: "",
+        home: "",
+        status: ""
+
+      };
+
+
+      dashboardScreen.classList.add("hidden");
+
+      accountScreen.classList.remove("hidden");
+
+
+      document.getElementById("username").value = "";
+
+      document.getElementById("email").value = "";
+
+      document.getElementById("password").value = "";
+
+      document.getElementById("confirmPassword").value = "";
+
+    });
+
+  </script>
+
+</body>
+</html>
     }
 
     .game {
