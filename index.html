@@ -1,1 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTERDARK</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0b10;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 900px;
+      min-height: 600px;
+      padding: 30px;
+      background: #14141c;
+      border: 1px solid #292936;
+      border-radius: 20px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 5px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #9999aa;
+      margin-bottom: 35px;
+    }
+
+    .panel {
+      max-width: 500px;
+      margin: auto;
+      background: #1c1c27;
+      padding: 25px;
+      border-radius: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #bbbbc8;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 18px;
+      border-radius: 10px;
+      border: 1px solid #333342;
+      background: #101017;
+      color: white;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #111;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #dddddd;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .card {
+      background: #1c1c27;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #292936;
+    }
+
+    .card h3 {
+      color: #9999aa;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .welcome {
+      margin-top: 25px;
+      padding: 20px;
+      background: #1c1c27;
+      border-radius: 14px;
+    }
+
+    .actions {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .dashboard,
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .game {
+        min-height: 100vh;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="game">
+
+    <!-- CREATE CHARACTER -->
+    <section id="characterScreen">
+
+      <div class="logo">AFTERDARK</div>
+
+      <p class="subtitle">
+        Build your life. Build your status.
+      </p>
+
+      <div class="panel">
+
+        <label for="playerName">Character name</label>
+        <input
+          id="playerName"
+          type="text"
+          maxlength="20"
+          placeholder="Enter your name"
+        >
+
+        <label for="career">Choose your starting career</label>
+
+        <select id="career">
+          <option value="worker">Worker</option>
+          <option value="creator">Content Creator</option>
+          <option value="entrepreneur">Entrepreneur</option>
+        </select>
+
+        <button id="startButton">
+          START YOUR LIFE
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboardScreen" class="hidden">
+
+      <div class="logo">AFTERDARK</div>
+
+      <div class="welcome">
+        <h2 id="welcomeText">Welcome!</h2>
+        <p>
+          Your journey starts with ₦500,000.
+        </p>
+      </div>
+
+      <div class="dashboard">
+
+        <div class="card">
+          <h3>💰 CASH</h3>
+          <p id="money">₦500,000</p>
+        </div>
+
+        <div class="card">
+          <h3>⭐ REPUTATION</h3>
+          <p id="reputation">0</p>
+        </div>
+
+        <div class="card">
+          <h3>💼 CAREER</h3>
+          <p id="careerDisplay">Worker</p>
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <button id="workButton">
+          💼 Work
+        </button>
+
+        <button id="profileButton">
+          👤 Profile
+        </button>
+
+        <button id="resetButton">
+          🔄 Reset
+        </button>
+
+      </div>
+
+      <div class="welcome">
+
+        <h3>📢 City News</h3>
+
+        <p id="news">
+          Welcome to AFTERDARK. Your story begins now.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    let player = {
+      name: "",
+      career: "",
+      money: 500000,
+      reputation: 0
+    };
+
+
+    const characterScreen =
+      document.getElementById("characterScreen");
+
+    const dashboardScreen =
+      document.getElementById("dashboardScreen");
+
+    const startButton =
+      document.getElementById("startButton");
+
+    const workButton =
+      document.getElementById("workButton");
+
+    const profileButton =
+      document.getElementById("profileButton");
+
+    const resetButton =
+      document.getElementById("resetButton");
+
+
+    startButton.addEventListener("click", function () {
+
+      const name =
+        document.getElementById("playerName").value.trim();
+
+      const career =
+        document.getElementById("career").value;
+
+      if (!name) {
+        alert("Enter a character name first.");
+        return;
+      }
+
+      player.name = name;
+      player.career = career;
+
+      characterScreen.classList.add("hidden");
+      dashboardScreen.classList.remove("hidden");
+
+      updateDashboard();
+
+    });
+
+
+    function updateDashboard() {
+
+      document.getElementById("welcomeText").textContent =
+        "Welcome, " + player.name + "!";
+
+      document.getElementById("money").textContent =
+        "₦" + player.money.toLocaleString();
+
+      document.getElementById("reputation").textContent =
+        player.reputation;
+
+      document.getElementById("careerDisplay").textContent =
+        formatCareer(player.career);
+
+    }
+
+
+    function formatCareer(career) {
+
+      if (career === "creator")
+        return "Content Creator";
+
+      if (career === "entrepreneur")
+        return "Entrepreneur";
+
+      return "Worker";
+
+    }
+
+
+    workButton.addEventListener("click", function () {
+
+      let earnings = 0;
+
+      if (player.career === "worker") {
+        earnings = 25000;
+      }
+
+      if (player.career === "creator") {
+        earnings = 35000;
+      }
+
+      if (player.career === "entrepreneur") {
+        earnings = 50000;
+      }
+
+      player.money += earnings;
+      player.reputation += 1;
+
+      document.getElementById("news").textContent =
+        "You worked today and earned ₦" +
+        earnings.toLocaleString() +
+        ".";
+
+      updateDashboard();
+
+    });
+
+
+    profileButton.addEventListener("click", function () {
+
+      alert(
+        "PLAYER PROFILE\n\n" +
+        "Name: " + player.name + "\n" +
+        "Career: " + formatCareer(player.career) + "\n" +
+        "Cash: ₦" + player.money.toLocaleString() + "\n" +
+        "Reputation: " + player.reputation
+      );
+
+    });
+
+
+    resetButton.addEventListener("click", function () {
+
+      if (!confirm("Reset your character?")) {
+        return;
+      }
+
+      player = {
+        name: "",
+        career: "",
+        money: 500000,
+        reputation: 0
+      };
+
+      dashboardScreen.classList.add("hidden");
+      characterScreen.classList.remove("hidden");
+
+      document.getElementById("playerName").value = "";
+
+    });
+
+  </script>
+
+</body>
+</html>
